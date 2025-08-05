@@ -1,9 +1,27 @@
 // helps to access auth data and configure protected routes
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
 
+/*
 const isProtectedRoute = createRouteMatcher(["/user-profile"]);
 export default clerkMiddleware(async (auth,req) => {
   if (isProtectedRoute(req)) await auth.protect();
+});
+*/
+
+const isPublicRoute = createRouteMatcher(["/","/sign-in(.*)","/sign-up(.*)"]);
+const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
+
+export default clerkMiddleware(async (auth, req) => {
+  const {userId,redirectToSignIn} = await auth();
+
+  if( isAdminRoute(req) && (await auth()).sessionClaims?.metadata?.role !== "admin") {
+    const url =new URL("/",req.url);
+    return NextResponse.redirect(url);
+  }
+  if (!isPublicRoute(req) && !userId) {
+    return redirectToSignIn();
+  }
 });
 
 export const config = {
