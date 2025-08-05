@@ -1,3 +1,6 @@
+import AdminAccessButton from "@/components/adminAccessButton";
+
+
 export default function WelcomePage() {
   return (
     <main className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-600 via-emerald-700 to-teal-800 text-white px-4 py-10">
@@ -59,18 +62,32 @@ export default function WelcomePage() {
           </div>
         </section>
 
-        {/* Call to Action */}
-        <a
-          href="https://clerk.dev/docs"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 inline-block"
-        >
-          <button className="px-8 py-3 bg-green-500 text-teal-900 font-semibold rounded-full hover:bg-green-400 hover:text-orange-700 transition duration-300">
-            Check out the Clerk Docs
-          </button>
-        </a>
+        <div className="flex flex-col items-center space-y-4">
+          <a
+            href="https://clerk.dev/docs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block"
+          >
+            <button className="px-8 py-3 bg-green-500 text-teal-900 font-semibold rounded-full hover:bg-green-400 hover:text-orange-700 transition duration-300">
+              Check out the Clerk Docs
+            </button>
+          </a>
 
+          {/* <a
+            href="/admin"
+            className="inline-block"
+          >
+            <button className="px-8 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-400 hover:text-amber-900 transition duration-300">
+              Check eligible for admin access
+            </button>
+          </a> */}
+
+            <div className="flex flex-col items-center space-y-4">
+      {/* other buttons */}
+      <AdminAccessButton />
+    </div>
+        </div>
 
       </div>
     </main>
